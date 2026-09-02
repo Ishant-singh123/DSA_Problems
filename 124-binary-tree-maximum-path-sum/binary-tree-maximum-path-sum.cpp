@@ -11,20 +11,25 @@
  */
 class Solution {
 public:
-    pair<int,int>solver(TreeNode *root){
+    int solver(TreeNode *root,int &maxsum){
         if(root==NULL){
-            return {0,INT_MIN};
+            return 0;
         }
-        auto left_side=solver(root->left);
-        auto right_side=solver(root->right);
-        int left=max(0,left_side.first);
-        int right=max(0,right_side.first);
-        int upward=root->val+max(left,right);  // moving upward
-        int through=root->val+left+right;   // throught root
-        int ans=max(left_side.second,max(right_side.second,through));
-        return {upward,ans};
+        int left_side=solver(root->left,maxsum);
+        int right_side=solver(root->right,maxsum);
+
+        left_side=max(left_side,0);
+        right_side=max(right_side,0);
+
+        int path_through_root=root->val+left_side+right_side;
+
+        maxsum=max(maxsum,path_through_root);
+
+        return root->val+max(left_side,right_side);
     }
     int maxPathSum(TreeNode* root) {
-        return solver(root).second;
+        int maxsum=INT_MIN;
+        solver(root,maxsum);
+        return maxsum;
     }
 };
