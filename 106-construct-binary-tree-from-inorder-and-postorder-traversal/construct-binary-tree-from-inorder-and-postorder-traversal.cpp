@@ -12,7 +12,7 @@
 class Solution {
 public:
     TreeNode* build(vector<int>&pos,int poshi, int poslo,vector<int>&in,int inlo,int inhi){
-        if(poslo<poshi || inlo>inhi){
+        if(poslo<poshi){
             return NULL;
         }
         TreeNode *root=new TreeNode(pos[poslo]);
