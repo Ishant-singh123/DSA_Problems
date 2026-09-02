@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode* build(vector<int>&pre,int prelo,int prehi,vector<int>&in,int inlo,int inhi){
+    TreeNode *build(vector<int>&pre,int prelo,int prehi,vector<int>&in,int inlo,int inhi){
         if(prelo>prehi){
             return NULL;
         }
@@ -26,7 +26,7 @@ public:
             }
         }
         int leftcount=pivitol-inlo;
-        int rightcont=inhi-pivitol;
+        int rightcount=inhi-pivitol;
         root->left=build(pre,prelo+1,prelo+leftcount,in,inlo,pivitol-1);
         root->right=build(pre,prelo+leftcount+1,prehi,in,pivitol+1,inhi);
         return root;
