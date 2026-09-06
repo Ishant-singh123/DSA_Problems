@@ -1,38 +1,45 @@
 class Solution {
 public:
-    void add_edges(vector<list<int>>&graph,int &curr,int &dest){
-        graph[curr].push_back(dest);
-        graph[dest].push_back(curr);
-    }
-    void dfs(vector<list<int>>&graph,int curr,unordered_set<int>&vis){
-        vis.insert(curr);
-        for(auto neigh:graph[curr]){
-            if(vis.find(neigh)==vis.end()){
-                dfs(graph,neigh,vis);
-            }
+    int find(vector<int>&parent,int x){
+        if(parent[x]==x){
+            return x;
         }
+        return parent[x]=find(parent,parent[x]);
     }
+    void unite(vector<int>&parent,vector<int>&rank,int a,int b){
+        a=find(parent,a);
+        b=find(parent,b);
 
-    int component(vector<list<int>>&graph){
-        unordered_set<int>vis;
-        int count=0;
-        for(int i=0;i<graph.size();i++){
-            if(vis.find(i)==vis.end()){
-                dfs(graph,i,vis);
-                count++;
-            }
+        if(a==b){
+            return ;
         }
-        return count;
+
+        if(rank[a]>=rank[b]){
+            parent[b]=a;
+            rank[a]++;
+        }
+        else{
+            parent[a]=b;
+            rank[b]++;
+        }
     }
     int findCircleNum(vector<vector<int>>& isConnected) {
-        vector<list<int>>graph(isConnected.size());
-        for(int i=0;i<isConnected.size();i++){
-            for(int j=0;j<isConnected[0].size();j++){
+        vector<int>parent(isConnected.size());
+        vector<int>rank(isConnected.size(),0);
+        for(int i=0;i<parent.size();i++){
+            parent[i]=i;
+        }
+        for(int i=0;i<parent.size();i++){
+            for(int j=0;j<isConnected[i].size();j++){
                 if(isConnected[i][j]==1){
-                    add_edges(graph,i,j);
+                    unite(parent,rank,i,j);
                 }
             }
         }
-        return component(graph);
+        unordered_set<int>unique;
+        for(int i=0;i<parent.size();i++){
+            unique.insert(find(parent,i));
+        }
+        return unique.size();
     }
 };
