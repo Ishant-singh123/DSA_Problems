@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void add_edges(vector<list<int>>&graph,int curr,int dest){
+    void add_edges(vector<list<int>>&graph,int &curr,int &dest){
         graph[curr].push_back(dest);
         graph[dest].push_back(curr);
     }
