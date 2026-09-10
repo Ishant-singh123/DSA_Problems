@@ -12,32 +12,19 @@
 class Solution {
 public:
     // {sum,size}
-    pair<int,int> sum(TreeNode *root){
+    tuple<int,int,int> solver(TreeNode *root){
         if(root==NULL){
-            return {0,0};
+            return {0,0,0};
         }
-        auto left=sum(root->left);
-        auto right=sum(root->right);
-
-        return {left.first+right.first+root->val,left.second+right.second+1};
-    }
-    void solver(TreeNode *root,int &ans){
-        if(root==NULL){
-            return ;
+        auto [suml,countl,ans1]=solver(root->left);
+        auto [sumr,countr,ans2]=solver(root->right);
+        if(((suml+sumr+root->val)/(countl+countr+1))==root->val){
+            return {suml+sumr+root->val,countl+countr+1,ans1+ans2+1};            
         }
-        auto left=sum(root->left);
-        auto right=sum(root->right);
-        int sum=left.first+right.first+root->val;
-        int count=left.second+right.second+1;
-        if(sum/count==root->val){
-            ans++;
-        }
-        solver(root->left,ans);
-        solver(root->right,ans);
+        return {suml+sumr+root->val,countl+countr+1,ans1+ans2};
     }
     int averageOfSubtree(TreeNode* root) {
-        int ans=0;
-        solver(root,ans);
+        auto  [sum,count,ans]=solver(root);
         return ans;
     }
 };
