@@ -2,9 +2,7 @@ class Solution {
 public:
     int findLongestChain(vector<vector<int>>& pairs) {
         sort(pairs.begin(),pairs.end());
-        // for(int i=0;i<pairs.size();i++){
-        //     cout<<pairs[i][0]<<" "<<pairs[i][1]<<": ";
-        // }
+
         int len=INT_MIN;
         for(int i=0;i<pairs.size();i++){
             vector<vector<int>>ans;
