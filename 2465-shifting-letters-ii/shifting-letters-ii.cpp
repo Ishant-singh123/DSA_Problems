@@ -16,19 +16,12 @@ public:
             v[i]=v[i]+v[i-1];
         }
         for(int i=0;i<v.size();i++){
-            cout<<v[i]<<" ";
-        }
-        cout<<endl;
-        for(int i=0;i<v.size();i++){
             if(v[i]>0){
                 v[i]=v[i]%26;
             }
             else{
                 v[i]=-abs(v[i])%26;
             }
-        }
-        for(int i=0;i<v.size();i++){
-            cout<<v[i]<<" ";
         }
         string ans="";
         for(int i=0;i<s.length();i++){
