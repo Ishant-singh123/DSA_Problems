@@ -37,14 +37,8 @@ public:
             mp[find(parent,i)]++;
         }
         int cnt=0;
-        for(int i=0;i<rank.size();i++){
-            cout<<rank[i]<<" ";
-        }
-        cout<<endl;
         for(auto p:mp){
-            cout<<p.first<<" "<<p.second<<endl;
             if(rank[p.first]==(p.second*(p.second-1))/2){
-                cout<<rank[p.first]<<" "<<(((p.second)*(p.second-1))/2)<<endl;
                 cnt++;
             }
         }
